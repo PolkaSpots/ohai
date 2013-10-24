@@ -62,12 +62,7 @@ module Ohai
           if md
             plugin_name = md[1].gsub(File::SEPARATOR, "::")
             unless @v6_dependency_solver.has_key?(plugin_name)
-              begin
-                plugin = @loader.load_plugin(file, plugin_name)
-              rescue PluginDefinitionError => e
-                Ohai::Log.error("Encountered error while loading plugin #{file}: #{e.inspect}")
-                raise
-              end
+              plugin = @loader.load_plugin(file, plugin_name)
               @v6_dependency_solver[plugin_name] = plugin unless plugin.nil?
             else
               Ohai::Log.debug("Already loaded plugin at #{file}")
@@ -92,7 +87,7 @@ module Ohai
       plugins = collect_providers(@attributes)
       begin
         plugins.each { |plugin| @runner.run_plugin(plugin, force) }
-      rescue Ohai::Exceptions::AttributeNotFound, Ohai::Exceptions::DependeyCycle => e
+      rescue Ohai::Exceptions::AttributeNotFound, Ohai::Exceptions::DependencyCycle => e
         Ohai::Log.error("Encountered error while running plugins: #{e.inspect}")
         raise
       end
