@@ -38,9 +38,6 @@ module Ohai
     end
   end
 
-  class PluginDefinitionError < Exception
-  end
-
   def self.plugin(name, &block)
     plugin = nil
     if NamedPlugin.strict_const_defined?(name)

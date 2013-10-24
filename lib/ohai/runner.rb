@@ -20,12 +20,6 @@
 require 'ohai/dsl/plugin'
 
 module Ohai
-  class NoAttributeError < Exception
-  end
-
-  class DependencyCycleError < Exception
-  end
-
   class Runner
     # safe_run: set to true if this runner will run plugins in
     # safe-mode. default false.

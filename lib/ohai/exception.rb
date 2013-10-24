@@ -17,6 +17,10 @@
 #
 
 module Ohai
+  class PluginDefinitionError < Exception; end
+  class NoAttributeError < Exception; end
+  class DependencyCycleError < Exception; end
+  
   module Exceptions
     class Exec < RuntimeError; end
   end
