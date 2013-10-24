@@ -192,7 +192,7 @@ describe Ohai::DSL::Plugin::VersionVII do
           collect_data { }
           collect_data { }
         }
-      }.to raise_error(Ohai::PluginDefinitionError, /collect_data already defined/)
+      }.to raise_error(Ohai::Exceptions::IllegalPluginDefinition, /collect_data already defined/)
     end
 
     it "should fail if a platform has already been defined in another plugin file" do
@@ -201,7 +201,7 @@ describe Ohai::DSL::Plugin::VersionVII do
         Ohai.plugin(@name) {
           collect_data { }
         }
-      }.to raise_error(Ohai::PluginDefinitionError, /collect_data already defined/)
+      }.to raise_error(Ohai::Exceptions::IllegalPluginDefinition, /collect_data already defined/)
     end
   end
 

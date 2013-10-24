@@ -39,7 +39,7 @@ module Ohai
         next if p.has_run? unless force
 
         if visited.include?(p)
-          raise DependencyCycleError, "Dependency cycle detected. Please refer to the following plugins: #{get_cycle(visited, p).join(", ") }"
+          raise Ohai::Exceptions::DependencyCycle, "Dependency cycle detected. Please refer to the following plugins: #{get_cycle(visited, p).join(", ") }"
         end
 
         dependency_providers = fetch_providers(p.dependencies)
@@ -61,7 +61,7 @@ module Ohai
         parts = attribute.split('/')
         parts.each do |part|
           next if part == Ohai::Mixin::OS.collect_os
-          raise NoAttributeError, "Cannot find plugin providing attribute \'#{attribute}\'" unless attrs[part]
+          raise Ohai::Exceptions::AttributeNotFound, "Cannot find plugin providing attribute \'#{attribute}\'" unless attrs[part]
           attrs = attrs[part]
         end
         providers << attrs[:_providers]
